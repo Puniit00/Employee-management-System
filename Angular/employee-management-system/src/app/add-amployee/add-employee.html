@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Add Employee</h2>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()" novalidate>
+
+    <!-- Name -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text"
+             id="name"
+             class="form-control"
+             formControlName="name"
+             [ngClass]="{'is-invalid': employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched}">
+      <div class="invalid-feedback">
+        Name is required.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email"
+             id="email"
+             class="form-control"
+             formControlName="email"
+             [ngClass]="{'is-invalid': employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched}">
+      <div class="invalid-feedback" *ngIf="employeeForm.get('email')?.errors?.['required']">
+        Email is required.
+      </div>
+      <div class="invalid-feedback" *ngIf="employeeForm.get('email')?.errors?.['email']">
+        Enter a valid email.
+      </div>
+    </div>
+
+    <!-- Department -->
+    <div class="mb-3">
+      <label for="department" class="form-label">Department</label>
+      <input type="text"
+             id="department"
+             class="form-control"
+             formControlName="department"
+             [ngClass]="{'is-invalid': employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched}">
+      <div class="invalid-feedback">
+        Department is required.
+      </div>
+    </div>
+
+    <!-- Date of Joining -->
+    <div class="mb-3">
+      <label for="dateOfJoining" class="form-label">Date of Joining</label>
+      <input type="date"
+             id="dateOfJoining"
+             class="form-control"
+             formControlName="dateOfJoining"
+             [ngClass]="{'is-invalid': employeeForm.get('dateOfJoining')?.invalid && employeeForm.get('dateOfJoining')?.touched}">
+      <div class="invalid-feedback">
+        Date of Joining is required.
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">
+      Add Employee
+    </button>
+
+  </form>
+</div>

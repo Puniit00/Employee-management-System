@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Goals for Employee #{{ employeeId }}</h2>
+    <button class="btn btn-primary" (click)="addGoal()">
+      <i class="bi bi-plus-circle"></i> Add Goal
+    </button>
+  </div>
+
+  <table class="table table-striped table-hover table-bordered align-middle" *ngIf="goals.length > 0; else noGoals">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Target Date</th>
+        <th>Completed</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let goal of goals; let i = index">
+        <td>{{ i + 1 }}</td>
+
+        <!-- Title -->
+        <td>
+          <ng-container *ngIf="editingIndex === i; else viewTitle">
+            <input type="text" [(ngModel)]="goal.title" class="form-control" />
+          </ng-container>
+          <ng-template #viewTitle>{{ goal.title }}</ng-template>
+        </td>
+
+        <!-- Description -->
+        <td>
+          <ng-container *ngIf="editingIndex === i; else viewDesc">
+            <input type="text" [(ngModel)]="goal.description" class="form-control" />
+          </ng-container>
+          <ng-template #viewDesc>{{ goal.description }}</ng-template>
+        </td>
+
+        <!-- Target Date -->
+        <td>
+          <ng-container *ngIf="editingIndex === i; else viewDate">
+            <input type="date" [(ngModel)]="goal.targetDate" class="form-control" />
+          </ng-container>
+          <ng-template #viewDate>{{ goal.targetDate | date: 'mediumDate' }}</ng-template>
+        </td>
+
+        <!-- Completed -->
+        <td>
+          <ng-container *ngIf="editingIndex === i; else viewComplete">
+            <select [(ngModel)]="goal.isCompleted" class="form-select">
+              <option [ngValue]="true">Yes</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </ng-container>
+          <ng-template #viewComplete>
+            <span [class.text-success]="goal.isCompleted" [class.text-danger]="!goal.isCompleted">
+              {{ goal.isCompleted ? 'Yes' : 'No' }}
+            </span>
+          </ng-template>
+        </td>
+
+        <!-- Actions -->
+        <td>
+          <ng-container *ngIf="editingIndex === i; else editButton">
+            <button class="btn btn-success btn-sm me-2" (click)="saveGoal(goal, i)">Save</button>
+            <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+          </ng-container>
+          <ng-template #editButton>
+            <button class="btn btn-warning btn-sm" (click)="editGoal(i)">Edit</button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- This was missing -->
+  <ng-template #noGoals>
+    <div class="alert alert-info text-center">No goals found for this employee.</div>
+  </ng-template>
+</div>

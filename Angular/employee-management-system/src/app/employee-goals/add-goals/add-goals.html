@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Add Goal</h2>
+
+  <form #goalForm="ngForm" (ngSubmit)="onSubmit(goalForm)">
+    <div class="mb-3">
+      <label for="title" class="form-label">Goal Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        required
+        [(ngModel)]="goal.title"
+        placeholder="Enter goal title"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        [(ngModel)]="goal.description"
+        rows="3"
+        placeholder="Enter goal description"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="targetDate" class="form-label">Target Date</label>
+      <input
+        type="date"
+        id="targetDate"
+        name="targetDate"
+        class="form-control"
+        required
+        [(ngModel)]="goal.targetDate"
+      />
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="isComplete"
+        name="isComplete"
+        [(ngModel)]="goal.isCompleted"
+      />
+      <label class="form-check-label" for="isComplete">
+        Is Complete
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="goalForm.invalid">
+      <i class="bi bi-save"></i> Save Goal
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">
+      Cancel
+    </button>
+  </form>
+</div>

@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h2>Performance Reviews</h2>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <p>Loading reviews...</p>
+  </div>
+
+  <!-- No Data State -->
+  <div *ngIf="!isLoading && performanceReviews.length === 0" class="alert alert-info">
+    No reviews available for this employee.
+  </div>
+
+  <!-- Table -->
+  <table *ngIf="!isLoading && performanceReviews.length > 0" class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Reviewer</th>
+        <th>Review Date</th>
+        <th>Rating</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let review of performanceReviews">
+        <td>{{ review.reviewerName }}</td>
+        <td>{{ review.reviewDate | date: 'mediumDate' }}</td>
+        <td>
+          <span *ngFor="let star of [].constructor(review.rating)">&#9733;</span>
+          <span *ngFor="let empty of [].constructor(10 - review.rating)">&#9734;</span>
+        </td>
+        <td>{{ review.comments || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
