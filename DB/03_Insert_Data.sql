@@ -48,3 +48,11 @@ BEGIN
     CROSS JOIN sys.objects
     WHERE e.Id IS NOT NULL;
 END
+
+-- Insert dummy data into Users table
+INSERT INTO Users (badgeNo, Name, CreateDate, Password)
+VALUES
+(1001, 'User One', GETDATE(), 'password1'),
+(1002, 'User Two', GETDATE(), 'password2');
+GO
+

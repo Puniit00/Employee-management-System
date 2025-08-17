@@ -44,3 +44,16 @@ BEGIN
     );
 END
 GO
+
+-- Users Table
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
+BEGIN
+    CREATE TABLE Users (
+        Id INT IDENTITY(1,1) PRIMARY KEY,
+        badgeNo INT NOT NULL,
+        Name VARCHAR(100) NOT NULL,
+        CreateDate DATETIME NOT NULL,
+        Password VARCHAR(2000) NULL
+    );
+END
+GO

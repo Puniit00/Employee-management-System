@@ -16,6 +16,9 @@
             // performance review related stored procedures
             public const string AddPerformanceReview = "AddPerformanceReview";
             public const string GetPerformanceReviews = "GetPerformanceReviews";
+            // Authentication related stored procedures
+            public const string GetUserByUsernameAndPassword = "GetUserByUsernameAndPassword";
+            public const string CreateUser = "CreateUser";
         }
     }
 }

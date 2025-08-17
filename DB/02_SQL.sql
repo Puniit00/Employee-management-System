@@ -73,3 +73,25 @@ BEGIN
 Select * from PerformanceReviews where EmployeeId =@employeeId
 END
 GO
+
+--Authentiction SP's
+
+Create Or ALter Procedure GetUserByUsernameAndPassword(@username Varchar(100), @password VARCHAR(2000))
+AS
+BEGIN
+Select top 1 * from Users where name = @username and Password = @password
+END
+GO
+
+CREATE OR ALTER PROCEDURE CreateUser
+    @badgeNo INT,
+    @name VARCHAR(100),
+    @password VARCHAR(2000)
+AS
+BEGIN
+    INSERT INTO Users (badgeNo, Name, CreateDate, Password)
+    VALUES (@badgeNo, @name, GETDATE(), @password);
+
+    SELECT CAST(SCOPE_IDENTITY() AS INT); -- returns the new User Id
+END
+GO
