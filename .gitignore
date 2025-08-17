@@ -26,3 +26,10 @@ Thumbs.db
 
 # Environment files (if sensitive)
 UI/src/environments/environment*.ts
+
+# Ignore Visual Studio database files
+*.db
+
+# Ignore entire .vs folder (recommended)
+.vs/
+
