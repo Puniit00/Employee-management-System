@@ -1,12 +1,173 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\controllers\\performancereviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\controllers\\performancereviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\controllers\\employeegoalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\controllers\\employeegoalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\constants\\employeeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\constants\\employeeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\data\\dbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\data\\dbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|c:\\users\\punee\\documents\\github\\employee-management-system\\api\\webapplication1\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D50456-138F-4B15-BFD9-81E5BAE4E4BF}|WebApplication1\\EmployeeManagementsystem.csproj|solutionrelative:webapplication1\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PerformanceReviewsController.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\PerformanceReviewsController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\PerformanceReviewsController.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\PerformanceReviewsController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\PerformanceReviewsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T10:37:57.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T10:37:41.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EmployeeConstants.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Constants\\EmployeeConstants.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Constants\\EmployeeConstants.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Constants\\EmployeeConstants.cs",
+              "RelativeToolTip": "WebApplication1\\Constants\\EmployeeConstants.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwBQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:48:09.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Model\\Users.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Model\\Users.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Model\\Users.cs",
+              "RelativeToolTip": "WebApplication1\\Model\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:40:32.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DbHelper.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Data\\DbHelper.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Data\\DbHelper.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Data\\DbHelper.cs",
+              "RelativeToolTip": "WebApplication1\\Data\\DbHelper.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAzwAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:37:47.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmployeeGoalsController.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\EmployeeGoalsController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\EmployeeGoalsController.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\EmployeeGoalsController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\EmployeeGoalsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:36:53.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAgwDcAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:35:23.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\appsettings.json",
+              "RelativeDocumentMoniker": "WebApplication1\\appsettings.json",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\appsettings.json",
+              "RelativeToolTip": "WebApplication1\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-17T05:32:24.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
+              "ToolTip": "C:\\Users\\punee\\Documents\\GitHub\\Employee-management-System\\API\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "WebApplication1\\Program.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAcwEQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T05:18:04.42Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

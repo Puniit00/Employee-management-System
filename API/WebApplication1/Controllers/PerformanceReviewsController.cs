@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Constants;
 using WebApplication1.Data;
@@ -7,6 +8,7 @@ using WebApplication1.Model;
 namespace WebApplication1.Controllers
 {
     [ApiController]
+    [Authorize]
     public class PerformanceReviewsController : Controller
     {
         private readonly IDbHelper _dbHelper;

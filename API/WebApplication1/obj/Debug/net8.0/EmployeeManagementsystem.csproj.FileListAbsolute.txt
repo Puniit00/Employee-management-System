@@ -160,3 +160,5 @@ C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\o
 C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\obj\Debug\net8.0\EmployeeManagementsystem.pdb
 C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\obj\Debug\net8.0\EmployeeManagementsystem.genruntimeconfig.cache
 C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\obj\Debug\net8.0\ref\EmployeeManagementsystem.dll
+C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\obj\Debug\net8.0\EmployeeManagementsystem.sourcelink.json
+C:\Users\punee\Documents\GitHub\Employee-management-System\API\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
