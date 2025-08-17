@@ -19,9 +19,29 @@
     <!-- Nav Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- Home (only visible if logged in) -->
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a
+            class="nav-link"
+            routerLink="/employee"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             Home
+          </a>
+        </li>
+
+        <!-- Logout button (only visible if logged in) -->
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <button class="btn btn-outline-light ms-3" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </li>
+
+        <!-- Login link (only visible if not logged in) -->
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="" routerLinkActive="active">
+            Login
           </a>
         </li>
       </ul>

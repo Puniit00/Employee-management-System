@@ -1,6 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -13,6 +13,9 @@ import { EmployeeGoalsComponent } from './employee-goals/employee-goals/employee
 import { AddGoalsComponent } from './employee-goals/add-goals/add-goals';
 import { PerformanceReviewComponent } from './review/performance-review/performance-review';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component/login.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { SignupComponent } from './login/signup.component/signup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { HeaderComponent } from './header/header.component';
     EmployeeGoalsComponent,
     AddGoalsComponent,
     PerformanceReviewComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,8 @@ import { HeaderComponent } from './header/header.component';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    provideZonelessChangeDetection(),
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [App]
 })
