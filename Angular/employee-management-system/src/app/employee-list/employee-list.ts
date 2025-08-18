@@ -17,6 +17,8 @@ import { Employee } from '../employee.interface';
 })
 export class EmployeeList implements OnInit {
   public employees: Employee[];
+  public sortState: { [key: string]: 'asc' | 'desc' };
+  public sortedEmployees: Employee[];
 
   constructor(
     private employeeService: EmployeeService,
@@ -24,12 +26,15 @@ export class EmployeeList implements OnInit {
     private router: Router
   ) {
     this.employees = [];
+    this.sortState = {};
+    this.sortedEmployees = [];
   }
 
   public ngOnInit(): void {
     // Get employees on component initialization
     this.employeeService.getEmployees().subscribe((data) => {
       this.employees = data;
+      this.sortedEmployees = [...this.employees]; // refresh sorted list
       this.changeDetetctionStrategy.markForCheck();
     });
   }
@@ -42,6 +47,7 @@ export class EmployeeList implements OnInit {
       this.employeeService.deleteEmployee(id ?? 0).subscribe({
         next: () => {
           this.employees = this.employees.filter((e) => e.id !== id);
+          this.sortedEmployees = [...this.employees]; // refresh sorted list
           this.changeDetetctionStrategy.detectChanges();
         },
         error: (err) => {
@@ -55,5 +61,32 @@ export class EmployeeList implements OnInit {
     this.router.navigate(['/update-employee'], {
       queryParams: { data: JSON.stringify(employee) },
     });
+  }
+
+  public sort(column: keyof Employee): void {
+    const current = this.sortState[column];
+    this.sortState = {}; // reset so only one column is active
+    this.sortState[column] = current === 'asc' ? 'desc' : 'asc';
+
+    this.sortedEmployees = [...this.employees].sort((a, b) => {
+      let valA = a[column];
+      let valB = b[column];
+
+      if (typeof valA === 'string' && typeof valB === 'string') {
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+      }
+
+      if (valA instanceof Date && valB instanceof Date) {
+        valA = valA.getTime();
+        valB = valB.getTime();
+      }
+
+      if (valA < valB) return this.sortState[column] === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortState[column] === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.changeDetetctionStrategy.markForCheck();
   }
 }
