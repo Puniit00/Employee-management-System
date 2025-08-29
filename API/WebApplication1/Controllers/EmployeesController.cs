@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using WebApplication1.Constants;
 using WebApplication1.Data;
 using WebApplication1.Model;
@@ -13,20 +14,32 @@ namespace WebApplication1.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IDbHelper _dbHelper;
+        private readonly IMemoryCache _cache;
 
-        public EmployeesController(IDbHelper dbHelper)
+        public EmployeesController(IDbHelper dbHelper, IMemoryCache cache)
         {
             _dbHelper = dbHelper;
+            _cache = cache;
         }
 
         // GET: api/employees
         [HttpGet]
         public async Task<IActionResult> GetEmployees()
         {
+            string cacheKey = "employeesList";
             try
             {
                 DynamicParameters dynamicParameters = new DynamicParameters();
+                if(_cache.TryGetValue(cacheKey, out List<Employee> cachedEmployees))
+                {
+                    return Ok(cachedEmployees);
+                }
                 var employees = await _dbHelper.ExecuteTableAsync<Employee>(EmployeeConstants.StoreProcedures.GetAllEmployees, dynamicParameters);
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(2))
+                    .SetPriority(CacheItemPriority.Normal);
+                _cache.Set(cacheKey, employees, cacheEntryOptions);
                 return Ok(employees);
             }
             catch (Exception ex)
