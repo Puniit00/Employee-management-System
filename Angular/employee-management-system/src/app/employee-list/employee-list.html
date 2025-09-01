@@ -1,61 +1,68 @@
-<table class="table table-striped table-hover table-bordered align-middle">
-  <thead class="table-dark">
-    <tr>
-      <th>#</th>
-      <th (click)="sort('name')" style="cursor: pointer">
-        Name
-        <span *ngIf="sortState['name'] === 'asc'">▲</span>
-        <span *ngIf="sortState['name'] === 'desc'">▼</span>
-      </th>
-      <th (click)="sort('email')" style="cursor: pointer">
-        Email
-        <span *ngIf="sortState['email'] === 'asc'">▲</span>
-        <span *ngIf="sortState['email'] === 'desc'">▼</span>
-      </th>
-      <th (click)="sort('department')" style="cursor: pointer">
-        Department
-        <span *ngIf="sortState['department'] === 'asc'">▲</span>
-        <span *ngIf="sortState['department'] === 'desc'">▼</span>
-      </th>
-      <th (click)="sort('dateOfJoining')" style="cursor: pointer">
-        Date of Joining
-        <span *ngIf="sortState['dateOfJoining'] === 'asc'">▲</span>
-        <span *ngIf="sortState['dateOfJoining'] === 'desc'">▼</span>
-      </th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let emp of sortedEmployees; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>
-        <a
-          [routerLink]="['/employee-goals', emp.id]"
-          class="text-decoration-none"
-        >
-          {{ emp.name }}
-        </a>
-      </td>
-      <td>{{ emp.email }}</td>
-      <td>{{ emp.department }}</td>
-      <td>{{ emp.dateOfJoining | date: 'mediumDate' }}</td>
-      <td>
-        <button class="btn btn-warning btn-sm me-2" (click)="onEdit(emp)">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-        <button
-          class="btn btn-danger btn-sm me-2"
-          (click)="deleteEmployee(emp.email)"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-        <a
-          class="btn btn-info btn-sm"
-          [routerLink]="['/performance-review', emp.id]"
-        >
-          <i class="bi bi-bar-chart"></i> Performance
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container my-3">
+  <!-- Filter Section -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="🔍 Search by Name..."
+        [(ngModel)]="nameFilter"
+        (input)="applyFilter()"
+      />
+    </div>
+  </div>
+
+  <!-- Employee Table -->
+  <table class="table table-striped table-hover table-bordered align-middle shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th (click)="sort('name')" style="cursor: pointer">
+          Name
+          <span *ngIf="sortState['name'] === 'asc'">▲</span>
+          <span *ngIf="sortState['name'] === 'desc'">▼</span>
+        </th>
+        <th (click)="sort('email')" style="cursor: pointer">
+          Email
+          <span *ngIf="sortState['email'] === 'asc'">▲</span>
+          <span *ngIf="sortState['email'] === 'desc'">▼</span>
+        </th>
+        <th (click)="sort('department')" style="cursor: pointer">
+          Department
+          <span *ngIf="sortState['department'] === 'asc'">▲</span>
+          <span *ngIf="sortState['department'] === 'desc'">▼</span>
+        </th>
+        <th (click)="sort('dateOfJoining')" style="cursor: pointer">
+          Date of Joining
+          <span *ngIf="sortState['dateOfJoining'] === 'asc'">▲</span>
+          <span *ngIf="sortState['dateOfJoining'] === 'desc'">▼</span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of sortedEmployees; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <a [routerLink]="['/employee-goals', emp.id]" class="text-decoration-none">
+            {{ emp.name }}
+          </a>
+        </td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.dateOfJoining | date: 'mediumDate' }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(emp)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="btn btn-danger btn-sm me-2" (click)="deleteEmployee(emp.email)">
+            <i class="bi bi-trash"></i>
+          </button>
+          <a class="btn btn-info btn-sm" [routerLink]="['/performance-review', emp.id]">
+            <i class="bi bi-bar-chart"></i> Performance
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
