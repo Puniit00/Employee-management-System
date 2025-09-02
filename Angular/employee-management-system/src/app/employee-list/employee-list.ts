@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { EmployeeService } from '../services/employee.service';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-employee-list',
@@ -28,7 +30,9 @@ export class EmployeeList implements OnInit {
   public sortState: { [key: string]: 'asc' | 'desc' };
   public sortedEmployees: Employee[];
   public nameFilter: string;
+  public rowHeight = 48;
   private filterSubject = new Subject<string>();
+  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
 
   constructor(
     private employeeService: EmployeeService,
@@ -39,6 +43,11 @@ export class EmployeeList implements OnInit {
     this.sortState = {};
     this.sortedEmployees = [];
     this.nameFilter = '';
+  }
+
+  public get viewportHeight(): number {
+    const rows = this.sortedEmployees.length;
+    return Math.min(rows * this.rowHeight, 1000); // 400 is your max height
   }
 
   public ngOnInit(): void {
@@ -121,5 +130,9 @@ export class EmployeeList implements OnInit {
 
   public applyFilter(): void {
     this.filterSubject.next(this.nameFilter);
+  }
+
+  public trackByEmployeeId(index: number, employee: Employee): number {
+    return employee.id;
   }
 }
