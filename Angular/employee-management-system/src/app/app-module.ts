@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { EmployeeList } from './employee-list/employee-list';
 import { AddEmployeeComponent } from './add-amployee/add-employee';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -25,7 +24,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     App,
-    EmployeeList,
     AddEmployeeComponent,
     UpdateEmployeeComponent,
     EmployeeGoalsComponent,

@@ -1,60 +1,44 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { EmployeeService } from '../services/employee.service';
+import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../employee.interface';
-import {
-  debounce,
-  debounceTime,
-  distinctUntilChanged,
-  of,
-  Subject,
-  switchMap,
-} from 'rxjs';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { debounceTime, distinctUntilChanged, of, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
-  standalone: false,
+  standalone: true, // ✅ standalone
+  imports: [CommonModule, ScrollingModule], // ✅ import modules you need
   templateUrl: './employee-list.html',
-  styleUrl: './employee-list.css',
+  styleUrls: ['./employee-list.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeList implements OnInit {
-  public employees: Employee[];
-  public sortState: { [key: string]: 'asc' | 'desc' };
-  public sortedEmployees: Employee[];
-  public nameFilter: string;
+  public employees: Employee[] = [];
+  public sortState: { [key: string]: 'asc' | 'desc' } = {};
+  public sortedEmployees: Employee[] = [];
+  public nameFilter: string = '';
   public rowHeight = 48;
   private filterSubject = new Subject<string>();
+
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
 
   constructor(
     private employeeService: EmployeeService,
     private changeDetetctionStrategy: ChangeDetectorRef,
     private router: Router
-  ) {
-    this.employees = [];
-    this.sortState = {};
-    this.sortedEmployees = [];
-    this.nameFilter = '';
-  }
+  ) {}
 
-  public get viewportHeight(): number {
+  get viewportHeight(): number {
     const rows = this.sortedEmployees.length;
-    return Math.min(rows * this.rowHeight, 1000); // 400 is your max height
+    return Math.min(rows * this.rowHeight, 1000);
   }
 
-  public ngOnInit(): void {
-    // Get employees on component initialization
+  ngOnInit(): void {
     this.employeeService.getEmployees().subscribe((data) => {
       this.employees = data;
-      this.sortedEmployees = [...this.employees]; // refresh sorted list
+      this.sortedEmployees = [...this.employees];
 
       this.filterSubject
         .pipe(
@@ -62,10 +46,7 @@ export class EmployeeList implements OnInit {
           distinctUntilChanged(),
           switchMap((value) => {
             const filterValue = value.trim().toLowerCase();
-            const filtered = this.employees.filter((emp) =>
-              emp.name.toLowerCase().includes(filterValue)
-            );
-            return of(filtered);
+            return of(this.employees.filter((emp) => emp.name.toLowerCase().includes(filterValue)));
           })
         )
         .subscribe((filtered) => {
@@ -77,33 +58,29 @@ export class EmployeeList implements OnInit {
     });
   }
 
-  public deleteEmployee(email: string): void {
+  deleteEmployee(email: string): void {
     if (confirm('Are you sure you want to delete this employee?')) {
-      const id = this.employees.find(
-        (employees: Employee) => employees.email.trim() === email.trim()
-      )?.id;
+      const id = this.employees.find((emp) => emp.email.trim() === email.trim())?.id;
       this.employeeService.deleteEmployee(id ?? 0).subscribe({
         next: () => {
           this.employees = this.employees.filter((e) => e.id !== id);
-          this.sortedEmployees = [...this.employees]; // refresh sorted list
+          this.sortedEmployees = [...this.employees];
           this.changeDetetctionStrategy.detectChanges();
         },
-        error: (err) => {
-          console.error('Error deleting employee:', err);
-        },
+        error: (err) => console.error('Error deleting employee:', err),
       });
     }
   }
 
-  public onEdit(employee: Employee): void {
+  onEdit(employee: Employee): void {
     this.router.navigate(['/update-employee'], {
       queryParams: { data: JSON.stringify(employee) },
     });
   }
 
-  public sort(column: keyof Employee): void {
+  sort(column: keyof Employee): void {
     const current = this.sortState[column];
-    this.sortState = {}; // reset so only one column is active
+    this.sortState = {};
     this.sortState[column] = current === 'asc' ? 'desc' : 'asc';
 
     this.sortedEmployees = [...this.employees].sort((a, b) => {
@@ -128,11 +105,11 @@ export class EmployeeList implements OnInit {
     this.changeDetetctionStrategy.markForCheck();
   }
 
-  public applyFilter(): void {
+  applyFilter(): void {
     this.filterSubject.next(this.nameFilter);
   }
 
-  public trackByEmployeeId(index: number, employee: Employee): number {
+  trackByEmployeeId(index: number, employee: Employee): number {
     return employee.id;
   }
 }
