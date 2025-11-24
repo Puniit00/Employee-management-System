@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 using WebApplication1.Constants;
 using WebApplication1.Data;
 using WebApplication1.Model;
+using System.Net.Http.Json;
 
 namespace WebApplication1.Controllers
 {
@@ -15,11 +16,17 @@ namespace WebApplication1.Controllers
     {
         private readonly IDbHelper _dbHelper;
         private readonly IMemoryCache _cache;
+        private readonly ILogger<EmployeesController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public EmployeesController(IDbHelper dbHelper, IMemoryCache cache)
+        public EmployeesController(IDbHelper dbHelper, IMemoryCache cache, ILogger<EmployeesController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _dbHelper = dbHelper;
             _cache = cache;
+            _logger = logger;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         // GET: api/employees
@@ -44,6 +51,7 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error retrieving employees");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving employees: {ex.Message}");
             }
         }
@@ -66,7 +74,60 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error adding employee");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding employee: {ex.Message}");
+            }
+        }
+
+        // New endpoint: insert locally, notify other app, then log after remote confirms
+        [HttpPost("add-and-notify")]
+        public async Task<IActionResult> AddEmployeeAndNotify([FromBody] Employee employee)
+        {
+            try
+            {
+                _logger.LogInformation("Entering AddEmployeeAndNotify for {Email}", employee.Email);
+
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("name", employee.Name);
+                dynamicParameters.Add("email", employee.Email);
+                dynamicParameters.Add("department", employee.Department);
+                dynamicParameters.Add("dateOfJoining", employee.DateOfJoining);
+
+                var newId = await _dbHelper.ExecuteScalarAsync<int>(
+                    EmployeeConstants.StoreProcedures.AddEmployee, dynamicParameters
+                );
+
+                _logger.LogInformation("Inserted employee locally with id {EmployeeId}", newId);
+
+                var client = _httpClientFactory.CreateClient("ApiToApiClient");
+                var endpoint = _configuration["OtherApi:InsertLogEndpoint"];
+
+                if (!string.IsNullOrEmpty(endpoint))
+                {
+                    var payload = new { employeeId = newId, name = employee.Name, email = employee.Email };
+                    var resp = await client.PostAsJsonAsync(endpoint, payload);
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        _logger.LogInformation("Remote app confirmed log insertion for employee {EmployeeId}", newId);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Remote app did not confirm log insertion. Status: {StatusCode}", resp.StatusCode);
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning("OtherApi endpoint not configured.");
+                }
+
+                _logger.LogInformation("Finalizing AddEmployeeAndNotify for {EmployeeId}", newId);
+
+                return CreatedAtAction(nameof(GetEmployees), new { id = newId }, employee);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in AddEmployeeAndNotify");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding employee and notifying remote: {ex.Message}");
             }
         }
 
@@ -88,6 +149,7 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error updating employee");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating employee: {ex.Message}");
             }
         }
@@ -107,6 +169,7 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error deleting employee");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting employee: {ex.Message}");
             }
         }
@@ -126,6 +189,7 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error getting employee");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error getting employee: {ex.Message}");
 
             }

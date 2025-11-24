@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../employee.interface';
@@ -9,7 +10,7 @@ import { debounceTime, distinctUntilChanged, of, Subject, switchMap } from 'rxjs
 @Component({
   selector: 'app-employee-list',
   standalone: true, // ✅ standalone
-  imports: [CommonModule, ScrollingModule], // ✅ import modules you need
+  imports: [CommonModule, ScrollingModule, FormsModule, RouterModule], // ✅ import modules you need
   templateUrl: './employee-list.html',
   styleUrls: ['./employee-list.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

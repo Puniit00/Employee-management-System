@@ -3,8 +3,21 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebApplication1.Data;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog early
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "EmployeeManagementsystem")
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddCors(options =>
 {
@@ -27,6 +40,14 @@ builder.Services.AddSingleton<IDbHelper>(sp =>
 {
     return new DbHelper(connectionString);
 });
+
+// Register IHttpContextAccessor for correlation id handler
+builder.Services.AddHttpContextAccessor();
+
+// Register correlation id delegating handler for outgoing HTTP calls
+builder.Services.AddTransient<EmployeeManagementsystem.Handlers.CorrelationIdHandler>();
+builder.Services.AddHttpClient("ApiToApiClient")
+    .AddHttpMessageHandler<EmployeeManagementsystem.Handlers.CorrelationIdHandler>();
 
 // 🔹 3. Add JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -100,6 +121,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+// Add correlation id middleware early so logs are enriched with it
+app.UseMiddleware<EmployeeManagementsystem.Middlewares.CorrelationIdMiddleware>();
+
+// Add Serilog request logging (it will use LogContext enriched by the middleware)
+app.UseSerilogRequestLogging();
+
 app.UseMiddleware<CustomExceptionhandlingMiddleWare>();
 app.UseAuthentication();
 app.UseAuthorization();
