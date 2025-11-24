@@ -6,6 +6,7 @@ using WebApplication1.Constants;
 using WebApplication1.Data;
 using WebApplication1.Model;
 using System.Net.Http.Json;
+using EmployeeManagementsystem.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -19,14 +20,16 @@ namespace WebApplication1.Controllers
         private readonly ILogger<EmployeesController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly INotificationService _notificationService;
 
-        public EmployeesController(IDbHelper dbHelper, IMemoryCache cache, ILogger<EmployeesController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public EmployeesController(IDbHelper dbHelper, IMemoryCache cache, ILogger<EmployeesController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration, INotificationService notificationService)
         {
             _dbHelper = dbHelper;
             _cache = cache;
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _notificationService = notificationService;
         }
 
         // GET: api/employees
@@ -102,6 +105,9 @@ namespace WebApplication1.Controllers
                 var client = _httpClientFactory.CreateClient("ApiToApiClient");
                 var endpoint = _configuration["OtherApi:InsertLogEndpoint"];
 
+                // determine correlation id to include in notification
+                var correlationId = HttpContext.Request.Headers.TryGetValue("X-Correlation-ID", out var cid) && !string.IsNullOrWhiteSpace(cid) ? cid.ToString() : HttpContext.TraceIdentifier;
+
                 if (!string.IsNullOrEmpty(endpoint))
                 {
                     var payload = new { employeeId = newId, name = employee.Name, email = employee.Email };
@@ -109,6 +115,11 @@ namespace WebApplication1.Controllers
                     if (resp.IsSuccessStatusCode)
                     {
                         _logger.LogInformation("Remote app confirmed log insertion for employee {EmployeeId}", newId);
+
+                        // broadcast notification to connected SignalR clients including correlation id
+                        await _notificationService.NotifyEmployeeCreated(newId, employee.Name, employee.Email, correlationId);
+
+                        _logger.LogInformation("Notification sent for employee {EmployeeId}", newId);
                     }
                     else
                     {
